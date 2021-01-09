@@ -15,10 +15,10 @@ function Home() {
                             Escolha o seu pedido que em poucos minutos<br />
                         levaremos na sua porta
                     </h3>
-                        <Link to="/orders" className="home-btn-order">
+                        <Link to="Orders" className="home-btn-order">
                             FAZER PEDIDO
-                        </Link>    
-                                        </div>
+                    </a>
+                    </div>
                     <div className="home-image">
                         <MainImage />
 
