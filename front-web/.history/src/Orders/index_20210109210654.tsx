@@ -18,7 +18,7 @@ function Orders() {
     return(
         <div className="orders-container">
             <StepsHeaders />
-            <ProductsList products={products} />
+            <ProductsList />
         </div>
     )
 }

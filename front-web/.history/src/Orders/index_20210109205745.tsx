@@ -4,6 +4,7 @@ import StepsHeaders from './StepsHeaders';
 import './styles.css';
 import { Product } from './types';
 import { fetchProducts } from '../api';
+import { isConstructorDeclaration } from 'typescript';
 
 function Orders() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -18,7 +19,7 @@ function Orders() {
     return(
         <div className="orders-container">
             <StepsHeaders />
-            <ProductsList products={products} />
+            <ProductsList />
         </div>
     )
 }
