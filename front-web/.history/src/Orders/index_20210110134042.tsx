@@ -25,9 +25,7 @@ function Orders() {
     useEffect(() => {
         fetchProducts()
         .then(response => setProducts(response.data))
-        .catch(error => {
-          toast.warning('Erro ao listar produto');
-        })           
+        .catch(error => console.log(error))           
     }, [] );
 
     const handleSelectProduct = (product: Product) => {
@@ -48,9 +46,8 @@ function Orders() {
           products: productsIds
         }
       
-        saveOrder(payload)
-        .then((response) => {
-          toast.error(`Pedido enviado com sucesso! Nº ${response.data.id}`);
+        saveOrder(payload).then(() => {
+          toast.error('Pedido enviado com sucesso!');
           setSelectedProducts([]);
         })
           .catch(() => {
@@ -70,7 +67,7 @@ function Orders() {
             <OrderLocation onChangeLocation={location => setOrderLocation(location)} />
             <OrderSummary amount={selectedProducts.length}
             totalPrice={totalPrice}
-            onSubmit={handleSubmit}
+            onSumit={handleSubmit}
             />
 
         </div>

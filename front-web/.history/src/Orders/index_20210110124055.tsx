@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import ProductsList from './ProductsList';
 import StepsHeaders from './StepsHeaders';
-import { toast, Toast } from 'react-toastify';
 import './styles.css';
-import { OrderLocationData, Product } from './types';
-import { fetchProducts, saveOrder } from '../api';
+import { OrderLocationdata, Product } from './types';
+import { fetchProducts } from '../api';
 import OrderLocation from './OrderLocation';
 import OrderSummary from './OrderSummary';
 import Footer from '../Footer';
@@ -13,11 +12,7 @@ import { checkIsSelected } from './helpers';
 function Orders() {
     const [products, setProducts] = useState<Product[]>([]);
     const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
-    const [orderLocation, setOrderLocation] = useState<OrderLocationData>();
-    const totalPrice = selectedProducts.reduce((sum, item) => {
-        return sum + item.price;
-
-    }, 0);
+    const [orderLocation, setOrderLocation] = useState<OrderLocationdata>();
 
 
     console.log(products);
@@ -25,9 +20,7 @@ function Orders() {
     useEffect(() => {
         fetchProducts()
         .then(response => setProducts(response.data))
-        .catch(error => {
-          toast.warning('Erro ao listar produto');
-        })           
+        .catch(error => console.log(error))           
     }, [] );
 
     const handleSelectProduct = (product: Product) => {
@@ -40,23 +33,6 @@ function Orders() {
           setSelectedProducts(previous => [...previous, product]);
         }
       }
-
-      const handleSubmit = () => {
-        const productsIds = selectedProducts.map(({ id }) => ({ id }));
-        const payload = {
-          ...orderLocation!,
-          products: productsIds
-        }
-      
-        saveOrder(payload)
-        .then((response) => {
-          toast.error(`Pedido enviado com sucesso! Nº ${response.data.id}`);
-          setSelectedProducts([]);
-        })
-          .catch(() => {
-            toast.warning('Erro ao enviar pedido');
-          })
-      }
     
     return(
         <>
@@ -68,11 +44,7 @@ function Orders() {
             selectedProducts={selectedProducts}
             />
             <OrderLocation onChangeLocation={location => setOrderLocation(location)} />
-            <OrderSummary amount={selectedProducts.length}
-            totalPrice={totalPrice}
-            onSubmit={handleSubmit}
-            />
-
+            <OrderSummary />
         </div>
         <Footer />
         </>
