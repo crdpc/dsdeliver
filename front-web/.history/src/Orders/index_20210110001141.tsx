@@ -23,7 +23,7 @@ function Orders() {
         <div className="orders-container">
             <StepsHeaders />
             <ProductsList products={products} />
-            <OrderLocation onChangeLocation={location => setOrderLocation(location)} />
+            <OrderLocation />
         </div>
     )
 }
